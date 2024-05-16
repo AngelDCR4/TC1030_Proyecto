@@ -3,7 +3,7 @@
 Este proyecto esta diseñado para un diseñar un sistema para una biblioteca virtual.
 
 ### Problema
-Una biblioteca necesita un sistema de solicitud de materiales para sus usuarios debido a que tienen dificultades para saber si un material esta disponible. Ademas, el personal necesita un método para registrar los materiales disponibles y procesar las solicitudes
+Una biblioteca necesita un sistema de administración de materiales para sus usuarios debido a que tienen dificultades para saber si un material esta disponible y poder prestar los materiales. Ademas, el personal necesita un método para registrar los materiales disponibles y procesar las solicitudes.
 
 ### Funcionamiento
 El programa permite:
