@@ -12,7 +12,7 @@ El programa permite:
 
  - Solicitud de Préstamo: Los usuarios pueden ver si esta disponible un material, para así solicitar el préstamo de un libro o audiolibro y luego la biblioteca haga entrega del material para así luego cambiar automaticamente a no disponible.
 
- - Gestión de usuario: Los usuarios se pueden registrar en el sistema para poder revisar la disponibilidad de un material y luego solicitar un libro.
+ - Gestión de usuario: Los usuarios se pueden registrar en el sistema para poder solicitar un material dependiendo de su disponibilidad.
 
 ### Consideraciones
 El programa no funcionara si la biblioteca no a creado objetos de la clase Libros/Audiolibros y si no hay algún usuario registrado.
