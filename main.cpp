@@ -10,12 +10,15 @@
 #include <string>
 
 #include "Material.h"
+#include "Biblioteca.h"
 
 using namespace std;
 
 int main(){
+/*
+//PRUEBAS DENTRO DE LA CLASE MATERIAL PARA VER FUNCIONAMIENTO DE LIBROS Y AUDIOLIBROS
     Libros libro("El Quijote", "Miguel de Cervantes",123);
-    Audiolibro audiolibro("1984", "George Orwell", 321);
+    Audiolibros audiolibro("1984", "George Orwell", 321);
 
     //----INTERFAS----
     cout << "BIENVENIDO A LA BIBLIOTECA VIRTUAL" << endl << "Tenemos disponibles estos materiales" << endl << endl;
@@ -44,4 +47,23 @@ int main(){
     audiolibro.prestar();
     cout << "Ahora el audiolibro: " << audiolibro.get_titulo() << " tiene disponibilidad ---> " << audiolibro.get_disponibilidad() << endl << endl;
     return 0;
+*/
+
+    Biblioteca biblioteca;
+
+    //----INTERFAS----
+    
+//VALORES INICIALES
+    biblioteca.agregar_libro("El Quijote", "Miguel de Cervantes", 123);
+    biblioteca.agregar_audiolibro("1984", "George Orwell", 321);
+    biblioteca.agregar_usuario("Juan");
+    
+    cout << "BIENVENIDO A LA BIBLIOTECA VIRTUAL" << endl << "Tenemos disponibles estos materiales" << endl << endl;
+    
+    biblioteca.checar_materiales();
+
+    biblioteca.entregar_libro(123, "Juan");
+    biblioteca.entregar_audiolibro(321, "Juan");
+
+    biblioteca.checar_materiales();
 }
