@@ -82,9 +82,9 @@ class Biblioteca{
     agregar_audiolibro añade un objeto audiolibro solicitanto un titulo, autor y un ID
     se guardara dentro del arreglo audiolibro[] e imprime un mensaje para la interfas
     */
-        void agregar_audiolibro(string tit, string aut, int id_num){
+        void agregar_audiolibro(string tit, string aut, int id_num, float dur){
             if(num_aud < 100){
-                audiolibro[num_aud] = Audiolibros(tit,aut,id_num);
+                audiolibro[num_aud] = Audiolibros(tit,aut,id_num,dur);
                 cout << "Se ha agregado \"" << audiolibro[num_aud].get_titulo() << "\" a la biblioteca" << endl;
                 num_aud++;
             } else {
@@ -154,10 +154,12 @@ class Biblioteca{
             cout << "LIBROS: \n";
             for(int i = 0; i < num_lib; i++){
                 cout << "EL libro \"" << libro[i].get_titulo() << "\" tiene disponibilidad: " << libro[i].get_disponibilidad() << endl;
+                libro[i].informacion();
             }
             cout << "AUDIOLIBROS: \n";
             for(int i = 0; i < num_aud; i++){
                 cout << "EL audiolibro \"" << audiolibro[i].get_titulo() << "\" tiene disponibilidad: " << audiolibro[i].get_disponibilidad() << endl;
+                audiolibro[i].informacion();
             }
         }
 };
