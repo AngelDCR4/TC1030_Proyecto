@@ -54,16 +54,19 @@ int main(){
     //----INTERFAS----
     
 //VALORES INICIALES
+    cout << "\n-- AGREGACION DE NUEVOS LIBROS --\n";
     biblioteca.agregar_libro("El Quijote", "Miguel de Cervantes", 123);
-    biblioteca.agregar_audiolibro("1984", "George Orwell", 321);
+    biblioteca.agregar_audiolibro("1984", "George Orwell", 321, 120);
     biblioteca.agregar_usuario("Juan");
-    
-    cout << "BIENVENIDO A LA BIBLIOTECA VIRTUAL" << endl << "Tenemos disponibles estos materiales" << endl << endl;
+
+    cout << "\nBIENVENIDO A LA BIBLIOTECA VIRTUAL" << endl << "Tenemos disponibles estos materiales" << endl;
     
     biblioteca.checar_materiales();
 
+    cout << "\n-- EJEMPLO DE PRESTAMOS --\n";
     biblioteca.entregar_libro(123, "Juan");
     biblioteca.entregar_audiolibro(321, "Juan");
 
+    cout << "\n-- REVISION MATERIALES DESPUES DE SER PRESTADOS --\n";
     biblioteca.checar_materiales();
 }
