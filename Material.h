@@ -3,7 +3,7 @@
  * Ángel David Candelario Rolon
  * A01712387
  * Esta clase define el objeto de tipo Material que contiene las clases heredadas
- * Libro y Audiolibro.
+ * Libro y Audiolibros.
  */
 
 
@@ -18,7 +18,7 @@ using namespace std;
 //DECLARACIÓN CLASE MATERIAL ABSTRACTA
 
 class Material{
-    private:
+    protected:
         string titulo;
         string autor;
         int id;
@@ -53,7 +53,8 @@ class Material{
             disponibilidad = dis;
         }
 
-        virtual void prestar() = 0;     //METODO ABSTRACTO QUE SERA SOBREESCRITO
+        virtual void prestar() = 0;     //Uso de polimorfismo en método virtual puro
+        virtual void informacion() = 0; //Uso de polimorfismo en método virtual puro
 };
 
 
@@ -66,30 +67,42 @@ class Libros: public Material {
         Libros(string tit, string aut, int id_num):Material(tit,aut,id_num){};
 
         //La funcion prestar verificara la disponibilidad y cambiara la disponibilidad a false
-        void prestar()override{
+        void prestar(){     //Sobreescritura del método prestar de Material
             if(get_disponibilidad()){  //SI DISPONIBILIDAD ES TRUE PROCEDE
-                cout << "Prestar el libro:" << get_titulo() << endl;
+                cout << "Se ha prestado el libro:" << get_titulo() << endl;
                 set_disponibilidad(false);
             } else {
                 cout << "Lo sentimos el libro no esta disponible" << endl;
             }
         } 
-        
+        void informacion(){
+            cout << "El Libro \"" << get_titulo() << "\" es del autor " << get_autor() << endl;
+        }
 };
 
 //DECLARACIÓN OBJETO AUDIOLIBROS QUE HEREDA DE MATERIAL
 
-class Audiolibro:public Material{
+class Audiolibros:public Material{
+    private:
+    float duracion;
     public:
-        Audiolibro():Material(){};
-        Audiolibro(string tit, string aut, int id_num):Material(tit,aut,id_num){};
+        Audiolibros():Material(){};
+        Audiolibros(string tit, string aut, int id_num, float dur):Material(tit,aut,id_num), duracion(dur){};
 
-        void prestar()override{
+        float get_duracion(){
+            return duracion;
+        }
+
+        void informacion(){
+            cout << "El audiolibro \"" << get_titulo() << "\" de " << get_autor() << " tiene una duracion de ";
+            cout << get_duracion() << " minutos" << endl;
+        }
+        void prestar(){     ////Sobreescritura del método prestar de Material
             if(get_disponibilidad()){
-                cout << "Prestar el audiolibro: " << get_titulo() << endl;
+                cout << "Se ha prestado el audiolibros: " << get_titulo() << endl;  
                 set_disponibilidad(false);
             } else {
-                cout << "Lo sentimos el audiolibro no esta dispobile" << endl;
+                cout << "Lo sentimos el audiolibros no esta dispobile" << endl;
             }
         }
 };
