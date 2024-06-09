@@ -34,20 +34,8 @@ class Biblioteca{
 
     /*
     agregar_libro añade un objeto libro solicitanto un titulo, autor y un ID
-    se guardara dentro del arreglo libro[] e imprime un mensaje para la interfas
+    se guardara dentro del arreglo material[] e imprime un mensaje para la interfas
     */
-        /*
-        void agregar_libro(string tit, string aut, int id_num){
-            if(num_lib < 100){
-                libro[num_lib] = Libros(tit,aut,id_num);
-                cout << "Se ha agregado \"" << libro[num_lib].get_titulo() << "\" a la biblioteca" << endl;
-                num_lib++;
-            } else {
-                cout << "La libreria esta llena no se puede agregar libros" << endl;
-            }
-        }
-        */
-        //---------------
 
         void agregar_libro(string tit,string aut, int id_num){
             if(num_mate < 100){
@@ -61,21 +49,9 @@ class Biblioteca{
 
 
     /*
-    agregar_audiolibro añade un objeto audiolibro solicitanto un titulo, autor y un ID
-    se guardara dentro del arreglo audiolibro[] e imprime un mensaje para la interfas
+    agregar_audiolibro añade un objeto audiolibro solicitanto un titulo, autor, ID y su duracion en minutos
+    se guardara dentro del arreglo material[] e imprime un mensaje para la interfas
     */
-    /*
-        void agregar_audiolibro(string tit, string aut, int id_num, float dur){
-            if(num_aud < 100){
-                audiolibro[num_aud] = Audiolibros(tit,aut,id_num,dur);
-                cout << "Se ha agregado \"" << audiolibro[num_aud].get_titulo() << "\" a la biblioteca" << endl;
-                num_aud++;
-            } else {
-                cout << "La libreria esta llena no se puede agregar audiolibros" << endl;
-            }
-        }
-    */
-        //---------
 
         void agregar_audiolibro(string tit, string aut, int id_num, float dur){
             if (num_mate < 100){
@@ -86,10 +62,12 @@ class Biblioteca{
                 cout << "La libreria esta llena no se pueden agregar mas materiales" << endl;
             }
         }
+
     /*
     agregar_usuario añade un objeto usuario solicitanto un nombre y
     se guardara dentro del arreglo usuario[] e imprime un mensaje para la interfas
     */
+
         void agregar_usuario(string nom){
             if(num_usu < 100){
                 usuario[num_usu] = Usuarios(nom);
@@ -99,31 +77,13 @@ class Biblioteca{
                 cout << "No se pueden agregar mas usuarios" << endl;
             }
         }
+        
     /*
-    entregar_libro se encarga de buscar el libro con el ID respectivo
-    dentro de todo el arreglo de libro y tambien busca al usuario respectivo
-    dentro del arreglo usuario y hace entrega del libro al usuario correspondinte
+    entregar_libro se encarga de buscar el libro con el ID y tipo respectivo y ademas verifica su disponibilidad
+    todo lo realiza dentro del arreglo material y tambien busca al usuario respectivo
+    si todo concuerda hace entrega del libro al usuario correspondinte
     cambiando automaticamente su disponibilidad del libro a False
     */
-    /*
-        void entregar_libro(int id, string usu_nombre){
-            for (int i = 0; i < num_lib; i++){
-                if(libro[i].get_id() == id){
-                    for ( int j = 0; j < num_usu; j++){
-                        if(usuario[j].get_nombre() == usu_nombre){
-                            usuario[j].solicitar_material(libro[i]);
-                            return;
-                        }
-                    }
-                    return;
-                } else {
-                cout << "El libro con ID " << id << " no se ha encontrado" << endl;
-            }
-            }
-        }
-    */
-
-   //-----------
 
         void entregar_libro(int id, string usu_nombre){
             bool encontrado = false;
@@ -138,7 +98,7 @@ class Biblioteca{
                         }
                     } encontrado = true;
                       break;
-                }else if(material[i]->get_tipo() == "Libro"){
+                }else if(material[i]->get_tipo() == "Libro" and material[i]->get_disponibilidad() == false){
                     cout << "Lo sentimos el material \""<< material[i]->get_titulo() <<"\" no se puede entregar.\n";
                 }  
             }
@@ -147,9 +107,9 @@ class Biblioteca{
                 }
         }
     /*
-    entregar_audiolibro se encarga de buscar el audiolibro con el ID respectivo
-    dentro de todo el arreglo de audiolibro y tambien busca al usuario respectivo
-    dentro del arreglo usuario y hace entrega del audiolibro al usuario correspondinte
+    entregar_audiolibro se encarga de buscar el audiolibro con el ID y tipo respectivo y ademas verifica su disponibilidad
+    todo lo realiza dentro del arreglo material y tambien busca al usuario respectivo
+    si todo concuerda hace entrega del audiolibro al usuario correspondinte
     cambiando automaticamente su disponibilidad del audiolibro a False
     */
         void entregar_audiolibro(int id, string usu_nombre){
@@ -165,7 +125,7 @@ class Biblioteca{
                         }
                     } encontrado = true;
                         break;
-                }else if(material[i]->get_tipo() == "Audiolibro"){
+                }else if(material[i]->get_tipo() == "Audiolibro" and material[i]->get_disponibilidad() == false){
                     cout << "Lo sentimos el material \"" << material[i]->get_titulo() << "\" no se puede entregar.\n";
                 }
                 
@@ -175,14 +135,14 @@ class Biblioteca{
                 }
         }
     /*
-    checar_material hace todo un barrido de los libros y audiolibros agregados y los imprime
-    dentro de un menu de LIBROS y AUDIOLIBROS y verifica la disponibilidad de cada material
+    checar_material hace todo un barrido de los libros y audiolibros agregados dentro del arreglo material
+    y e imprime su información principal al igual de que verifica la disponibilidad de cada material
     */
         void checar_materiales(){
             cout << "Tenemos los siguiente materiales: \n";
             for(int i = 0; i < num_mate; i++){
                         material[i]->informacion();
-                    cout << "tiene disponibilidad: " << material[i]->get_disponibilidad() << endl;
+                    cout << " - Tiene disponibilidad: " << material[i]->get_disponibilidad() << endl;
             }
         }
 };
