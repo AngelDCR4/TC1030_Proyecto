@@ -13,62 +13,30 @@
 
 #include <iostream>
 #include <string>
-#include <vector>
 #include "Material.h"
+#include "Usuario.h"
 
 using namespace std;
 
-
-//Declaración de la clase Usuarios
-class Usuarios{
-    private:
-        string nombre;
-    public:
-        Usuarios(): nombre(""){};
-        Usuarios(string nom):nombre(nom){};
-
-        string get_nombre(){
-            return nombre;
-        }
-
-        void set_nombre(string nom){
-            nombre = nom;
-        }
-        /*
-        solicitar_material se encarga de dependiendo si es libro o audiolibro
-        manda a llamar a la funcion prestar de la clase material para hacer entrega de material
-        e imprime un mensaje dependiendo de la disponibilidad del material
-        */
-        void solicitar_material(Material &material){
-            if(material.get_disponibilidad()){
-                material.prestar();
-                cout << "El usuario " << nombre << " ha solicitado el material " << material.get_titulo() << endl;
-            }else{
-                cout << "Lo sentimos el " << material.get_titulo() << " no esta disponible" << endl;
-            }
-        }
-};
-
-//Declaración de la clase usuarios
+//Declaración de la clase biblioteca
 class Biblioteca{
     private:
         string nombre;
+        Material *material[100];
+        int num_mate;
     public:
         Usuarios usuario[100];
-        Libros libro[100];
-        Audiolibros audiolibro[100];
         int num_usu;
-        int num_lib;
-        int num_aud;
 
     //IMPLEMENTAR METODOS
     public:
-        Biblioteca():num_usu(0),num_lib(0),num_aud(0){};
+        Biblioteca():num_usu(0),num_mate(0){};
 
     /*
     agregar_libro añade un objeto libro solicitanto un titulo, autor y un ID
     se guardara dentro del arreglo libro[] e imprime un mensaje para la interfas
     */
+        /*
         void agregar_libro(string tit, string aut, int id_num){
             if(num_lib < 100){
                 libro[num_lib] = Libros(tit,aut,id_num);
@@ -78,10 +46,25 @@ class Biblioteca{
                 cout << "La libreria esta llena no se puede agregar libros" << endl;
             }
         }
+        */
+        //---------------
+
+        void agregar_libro(string tit,string aut, int id_num){
+            if(num_mate < 100){
+                material[num_mate] = new Libros(tit,aut,id_num);
+                cout << "Se ha agregado el libro \"" << material[num_mate]->get_titulo() << "\" a la biblioteca" << endl;
+                num_mate++;
+            }else{
+                cout << "La libreria esta llena no se pueden agregar mas materiales" << endl;
+            }
+        }
+
+
     /*
     agregar_audiolibro añade un objeto audiolibro solicitanto un titulo, autor y un ID
     se guardara dentro del arreglo audiolibro[] e imprime un mensaje para la interfas
     */
+    /*
         void agregar_audiolibro(string tit, string aut, int id_num, float dur){
             if(num_aud < 100){
                 audiolibro[num_aud] = Audiolibros(tit,aut,id_num,dur);
@@ -89,6 +72,18 @@ class Biblioteca{
                 num_aud++;
             } else {
                 cout << "La libreria esta llena no se puede agregar audiolibros" << endl;
+            }
+        }
+    */
+        //---------
+
+        void agregar_audiolibro(string tit, string aut, int id_num, float dur){
+            if (num_mate < 100){
+                material[num_mate] = new Audiolibros(tit,aut,id_num,dur);
+                cout << "Se ha agregado el audiolibro \"" << material[num_mate]->get_titulo() << "\" a la biblioteca" << endl;
+                num_mate++;
+            }else{
+                cout << "La libreria esta llena no se pueden agregar mas materiales" << endl;
             }
         }
     /*
@@ -110,6 +105,7 @@ class Biblioteca{
     dentro del arreglo usuario y hace entrega del libro al usuario correspondinte
     cambiando automaticamente su disponibilidad del libro a False
     */
+    /*
         void entregar_libro(int id, string usu_nombre){
             for (int i = 0; i < num_lib; i++){
                 if(libro[i].get_id() == id){
@@ -125,6 +121,31 @@ class Biblioteca{
             }
             }
         }
+    */
+
+   //-----------
+
+        void entregar_libro(int id, string usu_nombre){
+            bool encontrado = false;
+            for(int i = 0; i < num_mate; i++){
+                if(material[i]->get_id() == id and material[i]->get_tipo() == "Libro" and material[i]->get_disponibilidad()){
+                    for(int j = 0; j < num_usu; j++){
+                        if(usuario[j].get_nombre() == usu_nombre){
+                            usuario[j].solicitar_material(*material[i]);
+                            return;
+                        }else{
+                            cout << "El usuario " << usu_nombre << " no esta registrado\n";
+                        }
+                    } encontrado = true;
+                      break;
+                }else if(material[i]->get_tipo() == "Libro"){
+                    cout << "Lo sentimos el material \""<< material[i]->get_titulo() <<"\" no se puede entregar.\n";
+                }  
+            }
+            if(encontrado){
+                    cout << "El libro con ID " << id << " no se ha encontrado" << endl;
+                }
+        }
     /*
     entregar_audiolibro se encarga de buscar el audiolibro con el ID respectivo
     dentro de todo el arreglo de audiolibro y tambien busca al usuario respectivo
@@ -132,34 +153,36 @@ class Biblioteca{
     cambiando automaticamente su disponibilidad del audiolibro a False
     */
         void entregar_audiolibro(int id, string usu_nombre){
-            for (int i = 0; i < num_usu; i++){
-                if(audiolibro[i].get_id() == id){
+            bool encontrado = false;
+            for (int i = 0; i < num_mate; i++){
+                if(material[i]->get_id() == id and material[i]->get_tipo() == "Audiolibro" and material[i]->get_disponibilidad()){
                     for(int j = 0; j < num_usu; j++){
                         if(usuario[j].get_nombre() == usu_nombre){
-                            usuario[j].solicitar_material(audiolibro[i]);
+                            usuario[j].solicitar_material(*material[i]);
                             return;
+                        }else{
+                            cout << "El usuario " << usu_nombre << " no esta registrado\n";
                         }
-                    }
-                    return;
-                } else {
-                cout << "El audiolibro con ID " << id << " no se ha encontrado" << endl;
+                    } encontrado = true;
+                        break;
+                }else if(material[i]->get_tipo() == "Audiolibro"){
+                    cout << "Lo sentimos el material \"" << material[i]->get_titulo() << "\" no se puede entregar.\n";
+                }
+                
             }
-            }
+            if(encontrado){
+                    cout << "El audiolibro con ID " << id << " no se ha encontrado" << endl;
+                }
         }
     /*
     checar_material hace todo un barrido de los libros y audiolibros agregados y los imprime
     dentro de un menu de LIBROS y AUDIOLIBROS y verifica la disponibilidad de cada material
     */
         void checar_materiales(){
-            cout << "LIBROS: \n";
-            for(int i = 0; i < num_lib; i++){
-                cout << "EL libro \"" << libro[i].get_titulo() << "\" tiene disponibilidad: " << libro[i].get_disponibilidad() << endl;
-                libro[i].informacion();
-            }
-            cout << "AUDIOLIBROS: \n";
-            for(int i = 0; i < num_aud; i++){
-                cout << "EL audiolibro \"" << audiolibro[i].get_titulo() << "\" tiene disponibilidad: " << audiolibro[i].get_disponibilidad() << endl;
-                audiolibro[i].informacion();
+            cout << "Tenemos los siguiente materiales: \n";
+            for(int i = 0; i < num_mate; i++){
+                        material[i]->informacion();
+                    cout << "tiene disponibilidad: " << material[i]->get_disponibilidad() << endl;
             }
         }
 };
