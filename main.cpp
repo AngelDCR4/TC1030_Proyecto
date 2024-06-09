@@ -18,7 +18,7 @@ int main(){
 /*
 //PRUEBAS DENTRO DE LA CLASE MATERIAL PARA VER FUNCIONAMIENTO DE LIBROS Y AUDIOLIBROS
     Libros libro("El Quijote", "Miguel de Cervantes",123);
-    Audiolibros audiolibro("1984", "George Orwell", 321);
+    Audiolibros audiolibro("1984", "George Orwell", 321,120);
 
     //----INTERFAS----
     cout << "BIENVENIDO A LA BIBLIOTECA VIRTUAL" << endl << "Tenemos disponibles estos materiales" << endl << endl;
@@ -49,6 +49,7 @@ int main(){
     return 0;
 */
 
+//MAIN PRINCIPAL DE LA BIBLIOTECA
     Biblioteca biblioteca;
 
     //----INTERFAS----
@@ -58,6 +59,7 @@ int main(){
     biblioteca.agregar_libro("El Quijote", "Miguel de Cervantes", 123);
     biblioteca.agregar_audiolibro("1984", "George Orwell", 321, 120);
     biblioteca.agregar_usuario("Juan");
+    biblioteca.agregar_libro("Nexo","A. Rolon",777);
 
     cout << "\nBIENVENIDO A LA BIBLIOTECA VIRTUAL" << endl;
     
@@ -69,6 +71,8 @@ int main(){
 
     cout << "\n-- REVISION MATERIALES DESPUES DE SER PRESTADOS --\n";
     biblioteca.checar_materiales();
-    cout << "\n\n";
+    cout << "\n-- ENTREGA DE LIBROS NO DISPONIBLES --\n";
     biblioteca.entregar_libro(123,"Juan");
+    biblioteca.entregar_audiolibro(321,"Juan");
+
 }
