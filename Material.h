@@ -53,7 +53,7 @@ class Material{
             disponibilidad = dis;
         }
 
-        virtual string get_tipo() = 0;
+        virtual string get_tipo() = 0;  //Uso de polimorfismo en método virtual puro
         virtual void prestar() = 0;     //Uso de polimorfismo en método virtual puro
         virtual void informacion() = 0; //Uso de polimorfismo en método virtual puro
 };
