@@ -53,6 +53,7 @@ class Material{
             disponibilidad = dis;
         }
 
+        virtual string get_tipo() = 0;
         virtual void prestar() = 0;     //Uso de polimorfismo en método virtual puro
         virtual void informacion() = 0; //Uso de polimorfismo en método virtual puro
 };
@@ -65,6 +66,10 @@ class Libros: public Material {
     public:
         Libros():Material(){};
         Libros(string tit, string aut, int id_num):Material(tit,aut,id_num){};
+
+        string get_tipo(){
+            return "Libro";
+        }
 
         //La funcion prestar verificara la disponibilidad y cambiara la disponibilidad a false
         void prestar(){     //Sobreescritura del método prestar de Material
@@ -93,11 +98,15 @@ class Audiolibros:public Material{
             return duracion;
         }
 
+        string get_tipo(){
+            return "Audiolibro";
+        }
+
         void informacion(){
-            cout << "El audiolibro \"" << get_titulo() << "\" de " << get_autor() << " tiene una duracion de ";
+            cout << "El Audiolibro \"" << get_titulo() << "\" de " << get_autor() << " tiene una duracion de ";
             cout << get_duracion() << " minutos" << endl;
         }
-        void prestar(){     ////Sobreescritura del método prestar de Material
+        void prestar(){
             if(get_disponibilidad()){
                 cout << "Se ha prestado el audiolibros: " << get_titulo() << endl;  
                 set_disponibilidad(false);
