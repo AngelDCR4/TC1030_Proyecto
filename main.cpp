@@ -59,7 +59,7 @@ int main(){
     biblioteca.agregar_audiolibro("1984", "George Orwell", 321, 120);
     biblioteca.agregar_usuario("Juan");
 
-    cout << "\nBIENVENIDO A LA BIBLIOTECA VIRTUAL" << endl << "Tenemos disponibles estos materiales" << endl;
+    cout << "\nBIENVENIDO A LA BIBLIOTECA VIRTUAL" << endl;
     
     biblioteca.checar_materiales();
 
@@ -69,4 +69,6 @@ int main(){
 
     cout << "\n-- REVISION MATERIALES DESPUES DE SER PRESTADOS --\n";
     biblioteca.checar_materiales();
+    cout << "\n\n";
+    biblioteca.entregar_libro(123,"Juan");
 }
