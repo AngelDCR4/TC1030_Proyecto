@@ -2,7 +2,8 @@
  * Proyecto Biblioteca clase Material
  * Ángel David Candelario Rolon
  * A01712387
- * Esta clase define el objeto de tipo Material que contiene las clases heredadas
+ * Esta clase define el objeto de tipo Material que contiene las clases 
+ * heredadas
  * Libro y Audiolibros.
  */
 
@@ -24,8 +25,10 @@ class Material{
         int id;
         bool disponibilidad;
     public:
-        Material():titulo(""),autor(""),id(0),disponibilidad(true){};   //CONSTRUCTOR DEFAULT
-        Material(string tit, string aut, int id_num):titulo(tit),autor(aut),id(id_num), disponibilidad(true){};
+        Material():titulo(""),autor(""),id(0),disponibilidad(true){};
+        //CONSTRUCTOR DEFAULT
+        Material(string tit, string aut, int id_num):titulo(tit),autor(aut),
+        id(id_num), disponibilidad(true){};
         //GETTERS SETTERS
         string get_titulo(){
             return titulo;
@@ -53,9 +56,9 @@ class Material{
             disponibilidad = dis;
         }
 
-        virtual string get_tipo() = 0;  //Uso de polimorfismo en método virtual puro
-        virtual void prestar() = 0;     //Uso de polimorfismo en método virtual puro
-        virtual void informacion() = 0; //Uso de polimorfismo en método virtual puro
+        virtual string get_tipo() = 0;  //Uso polimorfismo método virtual puro
+        virtual void prestar() = 0;     //Uso polimorfismo método virtual puro
+        virtual void informacion() = 0; //Uso polimorfismo método virtual puro
 };
 
 
@@ -71,7 +74,16 @@ class Libros: public Material {
             return "Libro";
         }
 
-        //La funcion prestar verificara la disponibilidad y cambiara la disponibilidad a false
+        /*
+        *   prestar()
+        *
+        *   La funcion prestar verificara la disponibilidad, cambiara la 
+        *   disponibilidad a false y mostrara un mensaje sobre el resultado
+        *
+        *   @param
+        *   @return establece dispobilidad a false y muestra 
+        *    mensaje en pantalla
+        */ 
         void prestar(){     //Sobreescritura del método prestar de Material
             if(get_disponibilidad()){  //SI DISPONIBILIDAD ES TRUE PROCEDE
                 cout << "Se ha prestado el libro:" << get_titulo() << endl;
@@ -80,8 +92,19 @@ class Libros: public Material {
                 cout << "Lo sentimos el libro no esta disponible" << endl;
             }
         } 
+
+        /*
+        *   informacion()
+        *
+        *   Muestra informacion principal sobre el libro como su titulo y autor
+        * 
+        *   @param
+        *   @return informacion sobre el libro
+        */
+
         void informacion(){
-            cout << "El Libro \"" << get_titulo() << "\" es del autor " << get_autor() << endl;
+            cout << "El Libro \"" << get_titulo() << "\" es del autor " 
+            << get_autor() << " ID asignado --> " << get_id() << endl;;
         }
 };
 
@@ -92,7 +115,8 @@ class Audiolibros:public Material{
     float duracion;
     public:
         Audiolibros():Material(){};
-        Audiolibros(string tit, string aut, int id_num, float dur):Material(tit,aut,id_num), duracion(dur){};
+        Audiolibros(string tit, string aut, int id_num, float dur):
+        Material(tit,aut,id_num), duracion(dur){};
 
         float get_duracion(){
             return duracion;
@@ -102,18 +126,43 @@ class Audiolibros:public Material{
             return "Audiolibro";
         }
 
+        /*
+        *   informacion()
+        *
+        *   Muestra informacion principal sobre el audiolibro como 
+        *   su titulo, autor y su duracion
+        * 
+        *   @param
+        *   @return informacion sobre el audiolibro
+        */
+
         void informacion(){
-            cout << "El Audiolibro \"" << get_titulo() << "\" de " << get_autor() << " tiene una duracion de ";
-            cout << get_duracion() << " minutos" << endl;
+            cout << "El Audiolibro \"" << get_titulo() << "\" de " 
+            << get_autor() << " tiene una duracion de ";
+            cout << get_duracion() << " minutos" << " ID asignado --> " 
+            << get_id() << endl;
         }
+
+        /*
+        *   prestar()
+        *
+        *   La funcion prestar verificara la disponibilidad, cambiara la 
+        *   disponibilidad a false y mostrara un mensaje sobre el resultado
+        *
+        *   @param
+        *   @return establece dispobilidad a false y muestra 
+        *    mensaje en pantalla
+        */ 
+
         void prestar(){
             if(get_disponibilidad()){
-                cout << "Se ha prestado el audiolibros: " << get_titulo() << endl;  
+                cout << "Se ha prestado el audiolibros: " 
+                << get_titulo() << endl;  
                 set_disponibilidad(false);
             } else {
-                cout << "Lo sentimos el audiolibros no esta dispobile" << endl;
+                cout << "Lo sentimos el audiolibros no esta dispobile" 
+                << endl;
             }
         }
 };
 #endif
-
